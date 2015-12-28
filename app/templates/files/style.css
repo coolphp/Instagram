@@ -31,7 +31,7 @@ body {
 	color: #313e47;
 		width: 100%;
 	height: 100%;
-	background:url("../img/point-bgr.png");
+	background:url("../../static/img/point-bgr.png");
 }
 html{
 	height: 100%;
