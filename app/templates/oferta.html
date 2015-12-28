@@ -1,0 +1,414 @@
+    <!DOCTYPE html>
+    <html ng-app="pinst">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Публичная оферта | Подписчики в Инстаграм | Реклама в Инстаграм</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/owl.carousel.css" rel="stylesheet" type="text/css"/>
+        <link href="css/owl.theme.css" rel="stylesheet" type="text/css"/>
+        <link href="css/owl.transitions.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.min.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="/old/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/old/favicon.ico" type="image/x-icon">
+
+        <meta name="description"
+              content="Профессиональное продвижение Instagram. Привлечение подписчиков в Инстаграм. Увеличение продаж,
+              реклама товаров, услуг, бренда. Никаких ботов, только целевая аудитория!"/>
+        <meta name="keywords"
+              content="instagram, инстаграм, продвижение instagram, продвижение аккаунта instagram,
+              продвижение в инстаграме, продвижение в инстаграм, продвижение через инстаграм, продвижение аккаунта инстаграм"/>
+        <meta property="og:site_name" content="Продвижение в Instagram | Подписчики в Инстаграм | Реклама в Инстаграм"/>
+        <meta property="og:url" content="http://funinsta.ru"/>
+        <meta property="og:title" content="Профессиональное продвижение Instagram"/>
+        <meta property="og:image" content="/img/logo2.jpg">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+
+    <div id="modal-message" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">Спасибо за вопрос! Наш менеджер скоро свяжемся с вами.</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+    <!--    -->
+        <div id="popup-form-wrapper" class="disabled popup">
+        <div id="customer-select-pcg"></div>
+        <button type="button" id="close-form-btn" class="close" aria-hidden="true"><span
+                class="glyphicon glyphicon-remove"></span></button>
+        <!--    <div id="form-title">Форма заказа</div>-->
+        <form role="form" id="buy-form" action="/form/form.php" method="post" accept-charset='utf-8'>
+            <input type="hidden" value="3" name="sid">
+            <input type="hidden" value="1" name="pid" id="product-field">
+            <input type="hidden" value="" name="OutSum" id="out-sum-field">
+            <input type="hidden" value="" name="Desc" id="description-field">
+
+            <div class="row first-step">
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                    <label for="customer-name">Контактное лицо*</label>
+                    <input type="text" class="form-control" id="customer-name" name="name" required
+                           placeholder="введите имя">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                    <label for="customer-mail">Email*</label>
+                    <input type="email" class="form-control" id="customer-mail" name="mail" required
+                           placeholder="введите электронный адрес">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                    <label for="customer-phone">Телефон</label>
+                    <input type="phone" class="form-control" id="customer-phone" name="phone"
+                           placeholder="введите телефон">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                    <label for="customer-instagram">Ссылка на Instagram*</label>
+                    <input type="text" class="form-control" id="customer-instagram" name="instagram" required
+                           placeholder="введите ссылку на ваш аккаунт">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                    <label for="customer-phone">Whatsapp</label>
+                    <input type="phone" class="form-control" id="customer-phone" name="whatsapp"
+                           placeholder="введите телефон">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                    <label for="customer-skype">Skype</label>
+                    <input type="phone" class="form-control" id="customer-phone" name="skype"
+                           placeholder="введите никнэйм">
+                </div>
+
+                <div id="textarea-wrapper" class="form-group col-md-12">
+                    <label for="customer-info">Дополнительная информация</label>
+                    <textarea class="form-control" name="info" id="customer-info"
+                              placeholder="Целевой город(а), категория пользователей, ссылки на instagram конкурентов"></textarea>
+						
+                  <input id="popup-buy-btn" type="submit" class="btn"
+                           value="Заказать сейчас">
+           
+                </div>
+
+            </div>
+
+        </form>
+
+
+    </div>
+    <div id="overlay" class="disabled"></div>
+
+    <div id="back-top-btn"><a class="scroll" href="#header"></a></div>
+
+    <header id="header" class="block" data-stellar-background-ratio="0.5">
+        <div id="header-inner-wrapper">
+
+            <div id="top-line">
+                <div class="container">
+                    <div class="row">
+                        <!--<div class="col-md-4 col-sm-4">-->
+                        <span class="text-center"><span class="colored-text">email:</span> <a
+                                href="mailto:pro@funinsta.ru ">probizi@yandex.ru </a>  </span>
+                        <!--</div>-->
+
+                        <!--<div class="col-md-4 col-sm-4">-->
+                        <span class="text-center"><span class="colored-text">skype:</span> <a
+                                href="skype: a1an4d ">Probizi </a> </span>
+                        <!--</div>-->
+
+                        <!--<div class="col-md-4 col-sm-4">-->
+                        <span class="text-center whats-app"><span class="colored-text">WhatsApp:</span> +7(982)255-69-44</span>
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <div id="logo-nav-wrapper" class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="navbar navbar-default">
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <a href="../" class="navbar-brand">
+<!--                                        inst<span class="selected-text">PR</span>.ru-->
+                                    </a>
+                                </div>
+
+                                <div id="mobile-menu-button">
+                                    <span class="glyphicon glyphicon-align-justify"></span>
+                                </div>
+
+                                <ul class="nav navbar-nav navbar-right">
+                                    <!--<li><a href="#">приемущества</a></li>-->
+                                    <li><a href="#contacts">контакты</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="title-row" class="row">
+                    <div id="title-wrapper" class="col-md-12  col-xs-12">
+                        <h1 id="main-title"><span id="custom-text1">
+                                Безопасное и эффективное продвижение в <img src="img/inst.png" id="ig-logo" alt="instagram" title="Продвижение в instagram">
+<!--                                <span id="custom-text2" class="colored-text">instagram</span>-->
+                        </h1>
+
+                        
+
+                        <div class="row action-row buy-wrapper">
+						<h2>
+                            <i >
+                                Попробуйте бесплатно прямо сейчас!</i>
+                        </h2>
+                            <!--                            <div class="call-to-action">-->
+                            <!--                                закажи сейчас!-->
+                            <!--                            </div>-->
+                            <button id="buy-btn" type="button" class="buy-btn btn btn-default btn-lg">
+                                РЕГИСТРАЦИЯ ЗА 30 СЕКУНД
+                                <!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>-->
+                            </button>
+
+                            <div class="gift">или <a href="http://funinsta.ru/office/user">войти</a> в личный кабинет 
+                             
+                            </div>
+
+                        </div>
+                    </div>
+
+<!--                    <div id="phone" class=" col-md-4  col-xs-12 img-wrapper">-->
+<!--                        <img src="img/phone.gif">-->
+<!--                    </div>-->
+                    <!--<div class="picture-wrapper" data-stellar-ratio="1.1"><img src="img/girl1.png" > </div>-->
+                </div>
+            </div>
+
+            <div id="down-arrow"></div>
+        </div>
+
+    </header>
+
+   
+
+   
+
+<div class="container">
+    <h2><b>#Публичная оферта</b></h2>
+    <div align="right">действительно с 10 ноября 2015 года </div>
+    <ul>
+    <li><b>1. Общие положения</b>
+      <ul>
+        <li>
+         1.1. Данный документ является публичной офертой сайта FunInsta (в дальнейшем именуемого Исполнитель) и содержит все существенные условия по оказанию услуг (в соответствии со статьей 435 и частью 2 статьи 437 Гражданского кодекса РФ). 
+        </li>
+
+        <li>
+         1.2. Любое физическое или юридическое лицо, посетившее сайт http://funinsta.ru, имеющее намерение приобрести ту или иную услугу, и оплатить получение услуги, становится Заказчиком.
+        </li>
+
+        <li>
+         1.3. Сервис FunInsta использует официальный API Instagram, но не является сертифицированным или одобренным администрацией Instagram. 
+        </li>
+      </ul>
+    </li>
+
+    <li> <b>2. Предмет Оферты </b>
+      <ul>
+        <li>
+          2.1. Предметом настоящей Оферты является безвозмездное предоставление Заказчику услуг по продвижению в социальной сети instagram.com. 
+        </li>
+        <li>
+          2.2. Исполнитель имеет право в любой момент менять условия предоставления услуги и условия настоящей публичной Оферты в одностороннем порядке без предварительного согласования с Заказчиком, обеспечивая при этом публикацию измененных условий на сайте http://funinsta.ru, не менее чем за один день до их ввода в действие. 
+        </li>
+      </ul>
+    </li>
+
+    <li><b>3. Условия и порядок предоставления услуг </b>
+
+      <ul>
+        <li>   3.1. Услуги предоставляются в полном объеме при условии их 100% (сто процентов) оплаты Заказчиком. 
+        </li>
+
+        <li> 3.2. Факт приобретения Информационно-консультативных услуг является безоговорочным принятием Заказчиком данного Договора-оферты. Заказчик, воспользовавшийся услугами Исполнителя, рассматривается как лицо, вступившее с Исполнителем в договорные отношения. 
+        </li>
+
+        <li> 3.2. Оплата сервиса осуществляется в личном кабинете на сайте http://funinsta.ru. Оплата производится через платежный интегратор http://robokassa.ru/. 
+        </li>
+
+        <li>  3.3. В случае, если Заказчик оплатил и не получил доступ к сервису, то необходимо связаться со службой поддержки на сайте или по эл. почте FunInsta@yandex.ru, предоставив материалы, подтверждающие факт оплаты. 
+        </li>
+
+        <li>  3.4. Настоящий договор имеет силу Акта об оказании услуг. Приемка производится без подписания актов. 
+        </li>
+
+      </ul>
+    </li>
+
+    <li>
+     <b> 4.  Условия и порядок возврата денежных средств </b>
+      <ul>
+         <li>   4.1. Исполнитель осуществляет возврат денег только в том случае, если сервис не запускается на компьютере Заказчика. В остальных случаях (если Заказчик не смог разобраться с настройками программы; его аккаунт заблокировали; если Программа не соответствует требованиям, или ожиданиям Заказчика и тп) - возврат не осуществляется. </li>
+      </ul>
+    </li>
+
+    <li> <b>5. Ответственность сторон</b>
+
+      <ul>
+        <li>5.1. Исполнитель не несет ответственности за невозможность обслуживания Заказчика по причинам, связанным с нарушением работы Интернет-канала, оборудования или программного обеспечения со стороны Заказчика.
+        </li>
+        <li>5.2. В случае, когда регистрационные данные (email адрес) содержит недостоверные либо неполные данные, Исполнитель не несет ответственности перед Заказчиком за информирование по ошибочно указанным данным не Заказчику, а третьим лицам. 
+        </li>
+        <li>5.3. Исполнитель не несет ответственности за то, каким образом Заказчик использовал полученную программу и за результаты ее использования Заказчиком. 
+        </li>
+        <li>5.4. Совокупная ответственность Исполнителя по договору Оферты, по любому иску или претензии в отношении договора Оферты или его исполнения ограничивается суммой платежа, уплаченного Исполнителю Заказчиком по договору Оферты. 
+        </li>
+        <li>5.5. За невыполнение или ненадлежащее выполнение обязательств по настоящей публичной Оферте Стороны несут ответственность в соответствии с действующим законодательством.
+        </li>
+      </ul>
+    </li>
+      <li><b>6. Срок действия и изменение договора Оферты </b>
+        <ul>
+          <li>6.1. Договор вступает в силу с момента его заключения (Акцепта Оферты) и действует до выполнения Сторонами своих обязательств.
+            </li>
+          <li>6.2. Все споры и разногласия решаются путем переговоров Сторон. 
+          </li>
+          <li>6.3. Все вопросы, не урегулированные настоящим договором Оферты, решаются в соответствии с действующим законодательством Российской Федерации.<br></br>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </div>
+  
+
+    <div id="order" class="block">
+        <div class="container">
+            <div class="row">
+                <div class="order-block">
+                    <h2 class="title">
+                        У вас есть вопросы?
+                    </h2>
+
+                    <div id="dop-text" class="text-center">напишите нам и мы ответим уже сегодня</div>
+
+                    <form id="footer-form" action="form/form.php" method="post" accept-charset='utf-8'>
+                        <div class="input-wrapper">
+                            <div class="col-md-3 col-xs-12">
+                                <input  class="form-control" type="text" name="name" placeholder="Имя" required>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <input  class="form-control" type="email" name="mail" placeholder="Электронный адрес" required>
+                            </div>                                                      
+                            <div id="textarea-wrapper" class="col-md-9 col-xs-12">
+                                <textarea name="info" class="form-control" placeholder="Вопрос или комментарий"></textarea>
+                            </div>
+                            <div id="button-wrapper" class="col-md-3 col-xs-12">
+                                <input class=" btn btn-default btn-lg footer-buy-btn " type="submit"
+                                       value="отправить вопрос">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div id="contacts" class="container">
+            <div class="row">
+                <!--<div class="col-md-4 col-sm-4">-->
+                <span class="text-center"><span class="colored-text">email:</span> <a href="mailto:pro@funinsta.ru ">probizi@yandex.ru</a> </span>
+                <!--</div>-->
+
+                <!--<div class="col-md-4 col-sm-4">-->
+                <span class="text-center"><span class="colored-text">skype:</span> <a
+                        href="skype: a1an4d ">Probizi</a></span>
+                <!--</div>-->
+
+                <!--<div class="col-md-4 col-sm-4">-->
+                <span class="text-center"><span class="colored-text">WhatsApp:</span>  +7(982)255-69-44</span>
+                <!--</div>-->
+            </div>
+			<center><p style="font-size: 14px;">ОГРНИП 313524721700018 ИНН 525111415430 г.Москва ул.Петровка д.26 ст.2 тел. +7 (495) 103-43-25</p></center>
+			<div class="off-links" style="font-size: 15px; " align="center">
+         
+
+          <a href="oferta.html">Публичная оферта</a>
+          <a href="politika-konfidentsialnosti.html">Политика конфиденциальности</a>
+          <a href="payment-pay2pay.html">Порядок оплаты через Robokassa</a>
+          <a href="guarantees-security.html">Гарантии безопасности</a>
+
+        </div>
+        </div>
+   
+
+    </footer>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/angular.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.stellar.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/scripts.min.js"></script>
+
+
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = 'kvDaIPdU1q';
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter33497615 = new Ya.Metrika({id:33497615,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/33497615" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+    </body>
+    </html>
