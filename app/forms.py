@@ -16,4 +16,8 @@ class IndexRegisterForm(Form):
     comment = TextAreaField('comment')
 
 
+class LoginForm(Form):
+
+    user = StringField('user', validators=[DataRequired(message=u"Введите данные")])
+    password = StringField('password', validators=[DataRequired(message=u"Введите данные")])
 

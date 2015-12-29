@@ -39,25 +39,29 @@ def index():
 def success():
     return render_template('success.htm')
 
-app.route('/confirm_email/<str:hash_email>')
+@app.route('/confirm_email/<hash_email>')
 def confirm_email(hash_email):
     email = models.EmailConfirmation.query.filter_by(hash_confirm=hash_email).first()
-    u_id = email.user_id
-    u = models.User.query.filter_by(id=u_id).first()
-    u.confirmation = models.User.CONFIRMATION_TRUE
-    db.session.add(u)
-    db.session.commit()
+    if email:
+        u_id = email.user_id
+        u = models.User.query.filter_by(id=u_id).first()
+        u.confirmation = models.User.CONFIRMATION_TRUE
+        db.session.add(u)
+        db.session.commit()
+        return 'Спасибо, Ваш Email подтвержден, входите с вашими данными при регистрации'
+    return redirect(url_for('index'))
 
 
 def send_email(data):
     email = Email()
-    res = u'Запрос с сайта: '+"\n\r"
-    for k, v in data.iteritems():
-        res+=u"{} : {} \n\r".format(k, v)
+    res = u'Запрос с сайта: '+"\n"
+    for k, v in data.items():
+        res+=u"{} : {}\n".format(k, v)
     email.send_message(app.config.get('SMTP_NOTIFICATION_TO'),res)
 
+
 def send_email_conformation(data, hash_e):
-    url = url_for('confirm_email',hash_email=hash_e)
+    url = "http://"+request.headers['Host']+url_for('confirm_email', hash_email=hash_e)
     email = Email()
     email.send_notify_auth(data['email'], url)
 
