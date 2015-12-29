@@ -35,6 +35,7 @@
         <![endif]-->
     </head>
     <body>
+     {% include 'inc/flash_errors.html' %}
 
 
     <div id="modal-message" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
@@ -59,7 +60,8 @@
         <button type="button" id="close-form-btn" class="close" aria-hidden="true"><span
                 class="glyphicon glyphicon-remove"></span></button>
         <!--    <div id="form-title">Форма заказа</div>-->
-        <form role="form" id="buy-form" action="/form/form.php" method="post" accept-charset='utf-8'>
+        <form role="form" id="buy-form" action="{{url_for('index')}}" method="post" accept-charset='utf-8'>
+            {{ form.hidden_tag()}}
             <input type="hidden" value="3" name="sid">
             <input type="hidden" value="1" name="pid" id="product-field">
             <input type="hidden" value="" name="OutSum" id="out-sum-field">
@@ -68,49 +70,43 @@
             <div class="row first-step">
                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                     <label for="customer-name">Контактное лицо*</label>
-                    <input type="text" class="form-control" id="customer-name" name="name" required
-                           placeholder="введите имя">
+                    {{form.name(class="form-control", id="customer-name", placeholder="введите имя", required='')}}
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                     <label for="customer-mail">Email*</label>
-                    <input type="email" class="form-control" id="customer-mail" name="mail" required
-                           placeholder="введите электронный адрес">
+                    {{form.email(class="form-control", type="email", id="customer-mail", placeholder="введите электронный адрес", required='')}}
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                     <label for="customer-phone">Телефон</label>
-                    <input type="phone" class="form-control" id="customer-phone" name="phone"
-                           placeholder="введите телефон">
+                    {{form.phone(class="form-control", type="phone", id="customer-phone", placeholder="введите телефон")}}
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                     <label for="customer-instagram">Ссылка на Instagram*</label>
-                    <input type="text" class="form-control" id="customer-instagram" name="instagram" required
-                           placeholder="введите ссылку на ваш аккаунт">
+                    {{form.instalink(class="form-control", type="text", id="customer-mail", placeholder="введите ссылку на ваш аккаунт", required='')}}
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                     <label for="customer-phone">Whatsapp</label>
-                    <input type="phone" class="form-control" id="customer-phone" name="whatsapp"
-                           placeholder="введите телефон">
+                    {{form.whatsapp(class="form-control", type="phone", id="customer-phone", placeholder="введите телефон")}}
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-6">
                     <label for="customer-skype">Skype</label>
-                    <input type="phone" class="form-control" id="customer-phone" name="skype"
-                           placeholder="введите никнэйм">
+                    {{form.skype(class="form-control", type="text", id="customer-phone", placeholder="введите никнэйм")}}
                 </div>
 
                 <div id="textarea-wrapper" class="form-group col-md-12">
                     <label for="customer-info">Дополнительная информация</label>
-                    <textarea class="form-control" name="info" id="customer-info"
-                              placeholder="Целевой город(а), категория пользователей, ссылки на instagram конкурентов"></textarea>
-						
+                   {{form.comment(class="form-control", type="text", id="customer-info", placeholder="Целевой город(а), категория пользователей, ссылки на instagram конкурентов")}}
                   <input id="popup-buy-btn" type="submit" class="btn"
                            value="Заказать сейчас">
-           
+
                 </div>
+                {% include 'inc/errors.html' %}
+
 
             </div>
 
