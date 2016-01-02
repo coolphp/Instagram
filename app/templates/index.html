@@ -38,6 +38,11 @@
      {% include 'inc/flash_errors.html' %}
 
 
+
+
+
+
+
     <div id="modal-message" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -191,7 +196,34 @@
                                 <!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>-->
                             </button>
 
-                            <div class="gift">или <a href="http://funinsta.ru/office/user">войти</a> в личный кабинет 
+
+
+
+                            <div class="gift">или <a  data-toggle="modal" href="#"  data-target="#myModal">войти</a> в личный кабинет
+
+                                 <!-- Modal -->
+                          <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog modal-sm">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">ВХОД</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/login/" method="post">
+                                  {{form.skype(class="form-control", type="text", id="customer-phone", placeholder="Логин")}}<br>
+
+                                    {{form.skype(class="form-control", type="text", id="customer-phone", placeholder="Пароль")}}<br>
+                                        <input type="submit" value="Войти" class="buy-btn btn btn-default">
+                                        </form>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                              
                             </div>
 
