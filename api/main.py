@@ -1,12 +1,11 @@
 # coding: utf-8
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 from lxml import html
 import selenium.common.exceptions
 import requests
-import urlparse
-import json
+import re
+
 
 
 class Instagram(object):
@@ -15,7 +14,7 @@ class Instagram(object):
 
     def __init__(self, user_name, password):
         self.browser = webdriver.Firefox()
-        # browser = webdriver.PhantomJS(executable_path='C:\phantomJs\phantomjs.exe')#
+        #self.browser = webdriver.PhantomJS(executable_path='C:\phantomJs\phantomjs.exe')#
         self.user_name = user_name
         self.password = password
         self.auth()
@@ -30,6 +29,13 @@ class Instagram(object):
         submit = self.browser.find_element_by_tag_name('button')
         submit.click()
         time.sleep(5)
+
+    def is_auth(self):
+        try:
+            self.browser.find_element_by_link_text(self.user_name)
+        except selenium.common.exceptions.NoSuchElementException:
+            return False
+        return True
 
     def like_by_tag(self, tag=u"секс"):
         '''
@@ -47,10 +53,10 @@ class Instagram(object):
             next = self.browser.find_element_by_xpath('//a[@class="v79 coreSpriteRightPaginationArrow"]')
             next.click()
             time.sleep(3)
-            self.like()
+            self._like()
             time.sleep(10)
 
-    def like(self):
+    def _like(self):
         try:
             like = self.browser.find_element_by_xpath('//a[@class="w59 h99 u77 coreSpriteHeartOpen"]')
             like.click()
@@ -63,7 +69,19 @@ class Instagram(object):
         res = res[0].replace(',', '')
         return int(res)
 
+    @staticmethod
+    def get_user_id(user_login='khigor777'):
+        url = 'https://www.instagram.com/{}/'.format(user_login)
+        r = requests.get(url)
+        r = re.search('"id":"(.*?)"', r.content)
+        try:
+            user_id = r.group(1)
+        except AttributeError:
+            return False
+        return user_id
+
 
 if __name__ == '__main__':
     inst = Instagram('khigor777', '545106igor')
+    print(inst.is_auth())
     # inst.like_by_tag(u'Брянск')
