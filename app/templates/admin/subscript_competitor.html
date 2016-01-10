@@ -7,7 +7,7 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                     <h2>Лайкинг по тегам</h2>
+                     <h2>Подписка по конкурентам</h2>
 
                        
                     </div>
@@ -19,15 +19,15 @@
                     <!-- Form Elements -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           Лайкинг по тегам
+                           Подписка по конкурентам
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                        <h3>Дать задание Instagram пользователю</h3>
+                    <h3>Дать задание Instagram пользователю</h3>
 
-                                     <form role="form" method="post" action="{{url_for('admin.addtaglike')}}">
-                                         {{ form.hidden_tag()}}
+<form role="form" method="post" action="{{url_for('admin.add_subscript_competitor')}}">
+ {{ form.hidden_tag()}}
 
 
   <div class=" form-group input-group input-group-lg">
@@ -38,13 +38,18 @@
 </div>
 
   <div class=" form-group input-group input-group-lg">
-  <span class="input-group-addon">#Тег</span>
-    {{form.tags(class="form-control", type="text",  placeholder="#Tag", required="True")}}<br>
+  <span class="input-group-addon">Логин конкурента</span>
+    {{form.competitor_name(class="form-control", type="text",  placeholder="Логин конкурента", required="True")}}<br>
+</div>
+
+    <div class=" form-group input-group input-group-lg">
+  <span class="input-group-addon">Кол-во пользователей конкурента</span>
+    {{form.num_users(class="form-control", type="text",  placeholder="Кол-во пользователей конкурента", required="True")}}<br>
 </div>
 
 <div class=" form-group input-group input-group-lg">
   <span class="input-group-addon">Кол-во лайков</span>
-    {{form.num_likes(class="form-control", type="text",  placeholder="Кол-во лайков", required="True")}}<br>
+    {{form.num_likes(class="form-control", type="text",  placeholder="Кол-во лайков на пользователей конкурента", required="True")}}<br>
 </div>
 
    <div class=" form-group input-group input-group-lg">
@@ -76,7 +81,6 @@
                                         <tr>
                                             <th>Пользователь</th>
                                             <th>#Тег</th>
-                                            <th>Кол-во лайков</th>
                                              <th>Лайков поставленно</th>
                                             <th>Статус</th>
                                             <th>Действия</th>
@@ -89,7 +93,6 @@
                                         <tr>
                                             <td>{{item.InstaUser.login}}</td>
                                             <td>{{item.Job.tags}}</td>
-                                            <td>{{item.Job.num_likes}}</td>
                                             <td>0</td>
                                             <td>{{format_working(item.Job.working)}}</td>
                                             <td><a href="#">Остановить</a></td>

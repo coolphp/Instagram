@@ -68,4 +68,22 @@ class JobLikingForm(Form):
 
 class JobLikingCompetitorForm(Form):
     competitor_name = StringField('competitor_name')
-    sleep_param = SelectField('sleep_param', choices=sleep_param, validators=[NumberRange(30, 50)])
+    competitor_id = IntegerField('competitor_id')
+    job_type = HiddenField('job_type', default=Job.TYPE_LIKING_COMPETITOR)
+    sleep_param = SelectField('sleep_param', choices=sleep_param)
+    num_likes = SelectField('num_likes', choices=[(u'1', 1), (u'3', 3), (u'5', 5)])
+    num_users = IntegerField('num_users')
+    insta_user_id = SelectField('insta_user_id', validators=[DataRequired(message=u"Введите данные")])
+
+
+class SubscriptTagForm(Form):
+    job_type = HiddenField('job_type', default=Job.TYPE_SUBSCRIBTION_TAG)
+    tags = StringField('tags', validators=[DataRequired(message=u"Введите данные")])
+    sleep_param = SelectField('sleep_param', choices=sleep_param)
+    num_likes = SelectField('num_likes', choices=[(u'1', 1), (u'3', 3), (u'5', 5)])
+    num_users = IntegerField('num_users')
+    insta_user_id = SelectField('insta_user_id', validators=[DataRequired(message=u"Введите данные")])
+
+
+class SubscriptCompetitor(JobLikingCompetitorForm):
+    job_type = HiddenField('job_type', default=Job.TYPE_SUBSCRIBTION_COMPETITOR)
