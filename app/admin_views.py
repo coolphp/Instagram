@@ -3,7 +3,7 @@
 from flask import render_template, redirect, Blueprint, request, url_for, session, flash
 from app.forms import *
 from models import *
-from api.main import Instagram
+from api import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 admin = Blueprint('admin', __name__)
@@ -16,7 +16,19 @@ def context_proc():
             return u'В работе'
         return u'Ожидает очереди'
 
-    return dict(format_working=format_working)
+    def format_job_type(data):
+        if data == Job.TYPE_SUBSCRIBTION_TAG:
+            return u'Подписка по тегам'
+        elif (data == Job.TYPE_SUBSCRIBTION_COMPETITOR):
+            return u'Подписка по конкурентам'
+        return ''
+
+    def format_none(data):
+        if data is None:
+            return ''
+        return data
+
+    return dict(format_working=format_working, format_job_type=format_job_type, format_none=format_none)
 
 
 @admin.route('/admin/')
@@ -31,7 +43,7 @@ def adduser():
     form = AddInstaUserForm()
 
     if request.method == 'POST':
-        insta_id = Instagram.get_user_id(request.form['login'])
+        insta_id = InstagramLikeByTag.get_user_id(request.form['login'])
         form = AddInstaUserForm(request.form)
         form.insta_id.data = insta_id
         if form.validate_on_submit():
@@ -94,6 +106,7 @@ def add_subscript_tags():
     flash_errors(form)
     return redirect(url_for('admin.subscript_tags'))
 
+
 @admin.route('/admin/subscript_competitor')
 def subscript_competitor():
     form = SubscriptCompetitor()
@@ -111,6 +124,17 @@ def add_subscript_competitor():
         return redirect(url_for('admin.subscript_competitor'))
     flash_errors(form)
     return redirect(url_for('admin.subscript_competitor'))
+
+
+@admin.route('/admin/unsubcribe')
+def unsubcribe():
+    subs = db.session.query(Job, User, InstaUser).outerjoin(InstaUser, Job.insta_user_id == InstaUser.id) \
+        .outerjoin(User, User.id == InstaUser.user_id).filter(User.id == session['user_id']) \
+        .filter((Job.job_type == Job.TYPE_SUBSCRIBTION_COMPETITOR) | (Job.job_type == Job.TYPE_SUBSCRIBTION_TAG)). \
+        order_by(Job.job_type).all()
+    return render_template('/admin/unsubscript.html', jobs=subs)
+
+
 
 @admin.route('/admin/blank/')
 def blank():
@@ -136,7 +160,7 @@ def add_job():
 
 
 def add_job_competitor_like():
-    inst_id = Instagram.get_user_id(request.form['competitor_name'])
+    inst_id = InstagramLikeByTag.get_user_id(request.form['competitor_name'])
 
     job = Job(insta_user_id=request.form['insta_user_id'],
               job_type=request.form['job_type'],

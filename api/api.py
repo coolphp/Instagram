@@ -73,6 +73,6 @@ class InstagramApi(object):
         r = requests.get('https://api.instagram.com/v1/users/{}/followed-by?access_token={}'.format(self.user_id, self.__access_token))
         print(r.content)
 
-api = InstagramApi()
-api.set_user_id('khigor777')
-api.get_followed_users()
+#api = InstagramApi()
+#api.set_user_id('khigor777')
+#api.get_followed_users()

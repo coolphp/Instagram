@@ -5,7 +5,7 @@ from wtforms.validators import *
 from flask.ext.wtf import Form
 from models import *
 from wtforms.validators import ValidationError
-from api import main
+from api import *
 
 
 sleep_param = [(unicode(30), 30), (unicode(40), 40), (unicode(50), 50)]
@@ -50,7 +50,7 @@ class AddInstaUserForm(Form):
         if not rv:
             return False
 
-        api = main.Instagram(self.login.data, self.password.data)
+        api = InstagramLikeByTag(self.login.data, self.password.data)
         api = api.is_auth()
         if api is False:
             self.password.errors.append(u'НЕ удалось добавить: Неправильный логин или пароль')

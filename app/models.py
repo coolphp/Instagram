@@ -1,7 +1,7 @@
 # coding: utf-8
 from app import db
 import datetime
-from api.main import Instagram
+
 
 
 class User(db.Model):
@@ -71,12 +71,17 @@ class Job(db.Model):
     working_start = db.Column(db.DATETIME, default=datetime.datetime.now())
 
 
+
 class Log(db.Model):
+
+    SUBSCRIBE = 0
+    UN_SUBSCRIBE = 1
 
     id = db.Column(db.BigInteger, primary_key=True)
     job_id = db.Column(db.Integer, db.ForeignKey('job.id', ondelete="CASCADE", onupdate='CASCADE'))
     url = db.Column(db.String(200))
     event_time = db.Column(db.DATETIME, default=datetime.datetime.now())
+    un_subcribe = db.Column(db.SmallInteger(1), default=SUBSCRIBE)
 
 
 class Subscription(db.Model):
@@ -86,7 +91,6 @@ class Subscription(db.Model):
 
     id = db.Column(db.BigInteger, primary_key=True)
     insta_name = db.Column(db.String(200))
-    insta_id = db.Column(db.BigInteger)
 
     followed_id = db.Column(db.BigInteger)
     followed_name = db.Column(db.String(200))
@@ -95,13 +99,10 @@ class Subscription(db.Model):
     full_name = db.Column(db.String(250))
 
     @staticmethod
-    def add_subscribers(insta_id, item):
-        insta_user = db.session.query(InstaUser).filter_by(id=insta_id).one()
-        user_id = Instagram.get_user_id(insta_user.login)
+    def add_subscribers(insta_name, item):
 
         for data in item:
-            sub = Subscription(insta_name=insta_user.login,
-                               insta_id=user_id,
+            sub = Subscription(insta_name=insta_name,
                                followed_id=data['pk'],
                                followed_name=data['username'],
                                is_private=Subscription.get_private_type(data['is_private']),
@@ -113,11 +114,9 @@ class Subscription(db.Model):
 
     @staticmethod
     def get_private_type(data):
-        IS_PRIVATE_TRUE = 0
-        IS_PRIVATE_FALSE = 1
-        if data == 'False':
-            return IS_PRIVATE_FALSE
-        return IS_PRIVATE_TRUE
+        if unicode(data) == u'False':
+            return Subscription.IS_PRIVATE_FALSE
+        return Subscription.IS_PRIVATE_TRUE
 
 
 
