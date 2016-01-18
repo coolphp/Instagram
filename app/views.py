@@ -57,7 +57,7 @@ def send_email(data):
     res = u'Запрос с сайта: '+"\n"
     for k, v in data.items():
         res+=u"{} : {}\n".format(k, v)
-    email.send_message(app.config.get('SMTP_NOTIFICATION_TO'),res)
+    email.send_message(app.config.get('SMTP_NOTIFICATION_TO'),res.encode('utf-8'))
 
 
 def send_email_conformation(data, hash_e):

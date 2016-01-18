@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- coding: UTF-8 -*-
 
 import smtplib
 from smtplib import SMTPException
@@ -12,17 +12,17 @@ class Email(object):
 
     def __init__(self):
         try:
-            self.__smtp_login()
+            self.smtp_login()
         except SMTPException as e:
             logging.debug(e.args)
 
-    def __smtp_login(self):
+    def smtp_login(self):
         server = app.config.get('SMTP_SERVER')
         name = app.config.get('SMTP_USER')
         pwd = app.config.get('SMTP_PASSWORD')
         smtp = smtplib.SMTP_SSL(server)
         self.smtp = smtp
-        self.smtp.login(name, pwd)
+        return self.smtp.login(name, pwd)
 
 
 
@@ -34,12 +34,15 @@ class Email(object):
         :return:
         """
         msg = app.config.get('SMTP_MSG')+auth_link
-        self.send_message(to, msg)
+        return self.send_message(to, unicode(msg))
 
     def send_message(self, to, msg):
         try:
             from_user = app.config.get('SMTP_USER')
-            self.smtp.sendmail(from_user, to, msg)
+            msg = msg.encode('utf-8', 'ignore')
+            res = self.smtp.sendmail(from_user, to, msg)
             self.smtp.quit()
         except SMTPException as e:
             logging.debug(e.args)
+            return e.args
+        return res

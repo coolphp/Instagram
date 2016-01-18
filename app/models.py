@@ -3,9 +3,7 @@ from app import db
 import datetime
 
 
-
 class User(db.Model):
-
     CONFIRMATION_FALSE = 0
     CONFIRMATION_TRUE = 1
 
@@ -20,23 +18,69 @@ class User(db.Model):
     instalink = db.Column(db.String(250))
     skype = db.Column(db.String(50))
     comment = db.Column(db.String(500))
-    user_role = db.Column(db.SmallInteger(2), default=ROLE_USER)
+    user_role = db.Column(db.SmallInteger, default=ROLE_USER)
     password = db.Column(db.String(20))
-    confirmation = db.Column(db.SmallInteger(2), default=CONFIRMATION_FALSE)
+    confirmation = db.Column(db.SmallInteger, default=CONFIRMATION_FALSE)
     EmailConfirmation = db.relationship('EmailConfirmation', backref=db.backref('conf'), lazy='dynamic')
+    bill_type = db.Column(db.SmallInteger)
 
+
+class Bills(db.Model):
+    BILL_FREE = unicode(0)
+    BILL_30_DAYS = unicode(1)
+    BILL_180_DAYS = unicode(2)
+    BILL_365_DAYS = unicode(3)
+
+    SUM_FREE = unicode(0)
+    SUM_30_DAYS = unicode(590)
+    SUM_180_DAYS = unicode(3186)
+    SUM_365_DAYS = unicode(5664)
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE", onupdate='CASCADE'))
+    bill_type = db.Column(db.SmallInteger, default=BILL_FREE)
+    pay_begin = db.Column(db.DATETIME, default=datetime.datetime.now())
+    pay_finish = db.Column(db.DATETIME)
+    bill_sum = db.Column(db.Float, default=SUM_FREE)
+
+    @staticmethod
+    def get_days(bill_type):
+        days = {Bills.BILL_FREE: 3,
+                Bills.BILL_30_DAYS: 30,
+                Bills.BILL_180_DAYS: 180,
+                Bills.BILL_365_DAYS: 365
+                }
+
+        if bill_type in days:
+            return days[bill_type]
+        raise Exception(u'Нет такого счета')
+
+    @staticmethod
+    def get_date_finish(bill_type, now):
+        days = Bills.get_days(bill_type)
+        date_finish = now + datetime.timedelta(days=days)
+        return date_finish
+
+    @staticmethod
+    def get_sum_from_bill(bill_type):
+        sum = {Bills.BILL_FREE: Bills.SUM_FREE,
+               Bills.BILL_30_DAYS: Bills.SUM_30_DAYS,
+               Bills.BILL_180_DAYS: Bills.SUM_180_DAYS,
+               Bills.BILL_365_DAYS: Bills.SUM_365_DAYS
+               }
+        if bill_type in sum:
+            return sum[bill_type]
+        raise Exception(u'Нет такой суммы')
 
 
 class EmailConfirmation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id=db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE", onupdate='CASCADE'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE", onupdate='CASCADE'))
     hash_confirm = db.Column(db.String(100))
 
 
 class InstaUser(db.Model):
-
     __tablename__ = 'instauser'
-
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -46,7 +90,6 @@ class InstaUser(db.Model):
 
 
 class Job(db.Model):
-
     # WORKING TYPES
     WORKING_FALSE = 0
     WORKING_TRUE = 1
@@ -60,20 +103,18 @@ class Job(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     insta_user_id = db.Column(db.Integer, db.ForeignKey('instauser.id', ondelete="CASCADE", onupdate='CASCADE'))
-    job_type = db.Column(db.SmallInteger(3), default='NULL')
-    sleep_param = db.Column(db.SmallInteger(3))
+    job_type = db.Column(db.SmallInteger, default='NULL')
+    sleep_param = db.Column(db.SmallInteger)
     num_likes = db.Column(db.SmallInteger)
     num_users = db.Column(db.Integer)
     competitor_name = db.Column(db.String(50))
     tags = db.Column(db.String(150))
     competitor_id = db.Column(db.BigInteger, index=True)
-    working = db.Column(db.SmallInteger(2), default=WORKING_FALSE)
+    working = db.Column(db.SmallInteger, default=WORKING_FALSE)
     working_start = db.Column(db.DATETIME, default=datetime.datetime.now())
 
 
-
 class Log(db.Model):
-
     SUBSCRIBE = 0
     UN_SUBSCRIBE = 1
 
@@ -81,11 +122,10 @@ class Log(db.Model):
     job_id = db.Column(db.Integer, db.ForeignKey('job.id', ondelete="CASCADE", onupdate='CASCADE'))
     url = db.Column(db.String(200))
     event_time = db.Column(db.DATETIME, default=datetime.datetime.now())
-    un_subcribe = db.Column(db.SmallInteger(1), default=SUBSCRIBE)
+    un_subcribe = db.Column(db.SmallInteger, default=SUBSCRIBE)
 
 
 class Subscription(db.Model):
-
     IS_PRIVATE_TRUE = 0
     IS_PRIVATE_FALSE = 1
 
@@ -94,7 +134,7 @@ class Subscription(db.Model):
 
     followed_id = db.Column(db.BigInteger)
     followed_name = db.Column(db.String(200))
-    is_private = db.Column(db.SmallInteger(2), default=IS_PRIVATE_TRUE)
+    is_private = db.Column(db.SmallInteger, default=IS_PRIVATE_TRUE)
     profile_pic_url = db.Column(db.String(500))
     full_name = db.Column(db.String(250))
 
@@ -117,6 +157,3 @@ class Subscription(db.Model):
         if unicode(data) == u'False':
             return Subscription.IS_PRIVATE_FALSE
         return Subscription.IS_PRIVATE_TRUE
-
-
-

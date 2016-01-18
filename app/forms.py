@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from wtforms import StringField, TextAreaField, SelectField, IntegerField, HiddenField
+from wtforms import StringField, TextAreaField, SelectField, IntegerField, HiddenField, RadioField
 from wtforms.validators import *
 from flask.ext.wtf import Form
 from models import *
@@ -87,3 +87,13 @@ class SubscriptTagForm(Form):
 
 class SubscriptCompetitor(JobLikingCompetitorForm):
     job_type = HiddenField('job_type', default=Job.TYPE_SUBSCRIBTION_COMPETITOR)
+
+
+class PayForm(Form):
+    bill = RadioField('bill', choices=[(Bills.BILL_FREE, u'Бесплатно 3 дня'),
+                                       (Bills.BILL_30_DAYS, u' На 30 дней '+str(Bills.SUM_30_DAYS)+u'руб.'),
+                                       (Bills.BILL_180_DAYS, u' На 180 дней '+str(Bills.SUM_180_DAYS)+u'руб.'),
+                                       (Bills.BILL_365_DAYS, u' На 365 дней '+str(Bills.SUM_365_DAYS)+u'руб.')],
+                      default=Bills.BILL_FREE
+                      )
+

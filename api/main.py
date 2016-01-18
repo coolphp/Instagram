@@ -230,4 +230,5 @@ def subscript_by_competitor():
     inst.run()
 
 if __name__ == '__main__':
-    pass
+    inst = InstagramLikeByTag('khigor777', '545106igor')
+    inst.run(u'Брянск')

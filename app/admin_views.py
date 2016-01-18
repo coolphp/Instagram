@@ -5,6 +5,7 @@ from app.forms import *
 from models import *
 from api import *
 from werkzeug.security import generate_password_hash, check_password_hash
+from helpers.robokasa import Robokassa
 
 admin = Blueprint('admin', __name__)
 
@@ -41,7 +42,6 @@ def index():
 @admin.route('/admin/adduser/', methods=['GET', 'POST'])
 def adduser():
     form = AddInstaUserForm()
-
     if request.method == 'POST':
         insta_id = InstagramLikeByTag.get_user_id(request.form['login'])
         form = AddInstaUserForm(request.form)
@@ -133,6 +133,28 @@ def unsubcribe():
         .filter((Job.job_type == Job.TYPE_SUBSCRIBTION_COMPETITOR) | (Job.job_type == Job.TYPE_SUBSCRIBTION_TAG)). \
         order_by(Job.job_type).all()
     return render_template('/admin/unsubscript.html', jobs=subs)
+
+
+@admin.route('/admin/pay', methods=['GET', 'POST'])
+def pay():
+    form = PayForm()
+    if request.method == 'POST':
+        form = PayForm(request.form)
+        if form.validate_on_submit():
+            user_id = session['user_id']
+            robo = Robokassa()
+            bill = robo.insert_bill(user_id=user_id, bill_type=request.form['bill'])
+            return redirect(robo.getUrlForBill(bill))
+    return render_template('/admin/pay.html', form=form)
+
+@admin.route('/admin/result')
+def pay_result():
+    robo = Robokassa()
+    result = robo.check_payment_result(request.args)
+    if result is True:
+
+        return 'ok'
+    return 'Bad Sign\n'
 
 
 
